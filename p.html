@@ -7,127 +7,78 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap');
 :root {
-  --bg: #F0F2F8; --white: #fff; --surface2: #F5F6FA;
-  --border: rgba(0,0,0,0.07); --red: #E8192C; --gold: #F5A800;
-  --green: #12B76A; --text: #111827; --text2: #6B7280; --text3: #9CA3AF;
-  --shadow: 0 2px 12px rgba(0,0,0,0.07);
+  --bg:#F0F2F8;--white:#fff;--surface2:#F5F6FA;--border:rgba(0,0,0,0.07);
+  --red:#E8192C;--gold:#F5A800;--green:#12B76A;
+  --text:#111827;--text2:#6B7280;--text3:#9CA3AF;--shadow:0 2px 12px rgba(0,0,0,0.07);
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Nunito', sans-serif; background: var(--bg); min-height: 100vh; padding-bottom: 40px; }
-
-.hdr {
-  background: var(--red); padding: 20px 20px 18px;
-  display: flex; align-items: center; gap: 14px;
-}
-.hdr img { width: 52px; height: 52px; object-fit: contain; border-radius: 10px; }
-.hdr-text h1 { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: white; letter-spacing: 3px; line-height: 1; }
-.hdr-text p { font-size: 12px; color: rgba(255,255,255,0.8); font-weight: 700; margin-top: 2px; }
-.gold-bar { height: 4px; background: var(--gold); }
-
-/* Экран не найден */
-.not-found {
-  text-align: center; padding: 60px 24px;
-}
-.not-found .ico { font-size: 56px; margin-bottom: 16px; }
-.not-found h2 { font-size: 20px; font-weight: 900; color: var(--text); margin-bottom: 8px; }
-.not-found p { font-size: 14px; color: var(--text2); font-weight: 600; line-height: 1.6; }
-
-/* Профиль ученика */
-.profile { padding: 20px 16px 0; }
-.profile-card {
-  background: var(--white); border-radius: 18px;
-  padding: 20px; box-shadow: var(--shadow); margin-bottom: 14px;
-  display: flex; align-items: center; gap: 16px;
-}
-.profile-ava {
-  width: 60px; height: 60px; border-radius: 50%;
-  background: var(--red); display: flex; align-items: center;
-  justify-content: center; font-family: 'Bebas Neue', sans-serif;
-  font-size: 22px; color: white; flex-shrink: 0;
-}
-.profile-name { font-size: 20px; font-weight: 900; color: var(--text); }
-.profile-group { font-size: 13px; color: var(--text2); font-weight: 600; margin-top: 3px; }
-
-/* Статистика */
-.stats-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-.stat-box {
-  background: var(--white); border-radius: 14px;
-  padding: 14px 10px; text-align: center; box-shadow: var(--shadow);
-}
-.stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 28px; line-height: 1; }
-.stat-val.green { color: var(--green); }
-.stat-val.gold { color: var(--gold); }
-.stat-val.red { color: var(--red); }
-.stat-lbl { font-size: 11px; color: var(--text3); font-weight: 700; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
-
-/* Секции */
-.sec-label { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--text3); padding: 4px 4px 10px; }
-
-/* Наклейки */
-.stickers-wrap { background: var(--white); border-radius: 16px; padding: 16px; box-shadow: var(--shadow); margin-bottom: 14px; }
-.stickers-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 2px; }
-.sticker-cell {
-  aspect-ratio: 1; border-radius: 12px; background: var(--surface2);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  font-size: 24px; position: relative;
-}
-.sticker-cell.earned { background: #FFFBEB; border: 1.5px solid #FDE68A; }
-.sticker-cell.locked { opacity: 0.3; filter: grayscale(1); }
-.sticker-cell-num { position: absolute; bottom: 2px; font-size: 9px; color: var(--text3); font-weight: 700; }
-
-/* История */
-.history-wrap { background: var(--white); border-radius: 16px; padding: 16px; box-shadow: var(--shadow); margin-bottom: 14px; }
-.history-row {
-  display: flex; align-items: center; gap: 12px;
-  padding: 10px 0; border-bottom: 1px solid var(--border);
-}
-.history-row:last-child { border-bottom: none; padding-bottom: 0; }
-.history-emo { font-size: 24px; }
-.history-info { flex: 1; }
-.history-name { font-size: 14px; font-weight: 800; color: var(--text); }
-.history-date { font-size: 12px; color: var(--text2); font-weight: 600; margin-top: 1px; }
-.history-empty { text-align: center; padding: 20px 0; color: var(--text3); font-size: 14px; font-weight: 700; }
-
-/* Рейтинг */
-.rating-wrap { background: var(--white); border-radius: 16px; padding: 16px; box-shadow: var(--shadow); margin-bottom: 14px; }
-.rating-row {
-  display: flex; align-items: center; gap: 10px;
-  padding: 9px 10px; border-radius: 10px; margin-bottom: 6px;
-}
-.rating-row:last-child { margin-bottom: 0; }
-.rating-row.highlight { background: #FFFBEB; border: 1.5px solid #FDE68A; }
-.r-pos { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 15px; flex-shrink: 0; }
-.pos-1 { background: var(--gold); color: white; }
-.pos-2 { background: #94A3B8; color: white; }
-.pos-3 { background: #CD7F32; color: white; }
-.pos-o { background: var(--surface2); color: var(--text2); }
-.r-name { flex: 1; font-size: 14px; font-weight: 800; color: var(--text); }
-.r-val { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--gold); }
-
-/* Мотивация */
-.motivate {
-  background: var(--red); border-radius: 16px;
-  padding: 18px; text-align: center; margin-bottom: 14px;
-  box-shadow: 0 4px 20px rgba(232,25,44,0.25);
-}
-.motivate h3 { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: white; letter-spacing: 2px; }
-.motivate p { font-size: 13px; color: rgba(255,255,255,0.9); font-weight: 700; margin-top: 6px; line-height: 1.5; }
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:var(--bg);min-height:100vh;padding-bottom:40px;}
+.hdr{background:var(--red);padding:20px 20px 18px;display:flex;align-items:center;gap:14px;}
+.hdr img{width:52px;height:52px;object-fit:contain;border-radius:10px;}
+.hdr h1{font-family:'Bebas Neue',sans-serif;font-size:26px;color:white;letter-spacing:3px;line-height:1;}
+.hdr p{font-size:12px;color:rgba(255,255,255,0.8);font-weight:700;margin-top:2px;}
+.gold-bar{height:4px;background:var(--gold);}
+.loading{text-align:center;padding:60px 24px;}
+.loading .ico{font-size:48px;margin-bottom:16px;}
+.loading p{font-size:15px;color:var(--text2);font-weight:700;}
+.not-found{text-align:center;padding:60px 24px;}
+.not-found .ico{font-size:56px;margin-bottom:16px;}
+.not-found h2{font-size:20px;font-weight:900;color:var(--text);margin-bottom:8px;}
+.not-found p{font-size:14px;color:var(--text2);font-weight:600;line-height:1.6;}
+.profile{padding:20px 16px 0;}
+.profile-card{background:var(--white);border-radius:18px;padding:20px;box-shadow:var(--shadow);margin-bottom:14px;display:flex;align-items:center;gap:16px;}
+.profile-ava{width:60px;height:60px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:22px;color:white;flex-shrink:0;}
+.profile-name{font-size:20px;font-weight:900;color:var(--text);}
+.profile-group{font-size:13px;color:var(--text2);font-weight:600;margin-top:3px;}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px;}
+.stat-box{background:var(--white);border-radius:14px;padding:14px 10px;text-align:center;box-shadow:var(--shadow);}
+.stat-val{font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:1;}
+.stat-val.green{color:var(--green);}
+.stat-val.gold{color:var(--gold);}
+.stat-val.red{color:var(--red);}
+.stat-lbl{font-size:11px;color:var(--text3);font-weight:700;margin-top:3px;text-transform:uppercase;}
+.sec-label{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--text3);padding:4px 4px 10px;}
+.stickers-wrap{background:var(--white);border-radius:16px;padding:16px;box-shadow:var(--shadow);margin-bottom:14px;}
+.stickers-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:2px;}
+.sticker-cell{aspect-ratio:1;border-radius:12px;background:var(--surface2);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:24px;position:relative;}
+.sticker-cell.earned{background:#FFFBEB;border:1.5px solid #FDE68A;}
+.sticker-cell.locked{opacity:0.3;filter:grayscale(1);}
+.sticker-cell-num{position:absolute;bottom:2px;font-size:9px;color:var(--text3);font-weight:700;}
+.history-wrap{background:var(--white);border-radius:16px;padding:16px;box-shadow:var(--shadow);margin-bottom:14px;}
+.history-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);}
+.history-row:last-child{border-bottom:none;padding-bottom:0;}
+.history-emo{font-size:24px;}
+.history-name{font-size:14px;font-weight:800;color:var(--text);}
+.history-date{font-size:12px;color:var(--text2);font-weight:600;margin-top:1px;}
+.history-empty{text-align:center;padding:20px 0;color:var(--text3);font-size:14px;font-weight:700;}
+.rating-wrap{background:var(--white);border-radius:16px;padding:16px;box-shadow:var(--shadow);margin-bottom:14px;}
+.rating-row{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:10px;margin-bottom:6px;}
+.rating-row:last-child{margin-bottom:0;}
+.rating-row.highlight{background:#FFFBEB;border:1.5px solid #FDE68A;}
+.r-pos{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:15px;flex-shrink:0;}
+.pos-1{background:var(--gold);color:white;}
+.pos-2{background:#94A3B8;color:white;}
+.pos-3{background:#CD7F32;color:white;}
+.pos-o{background:var(--surface2);color:var(--text2);}
+.r-name{flex:1;font-size:14px;font-weight:800;color:var(--text);}
+.r-val{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold);}
+.motivate{background:var(--red);border-radius:16px;padding:18px;text-align:center;margin-bottom:14px;}
+.motivate h3{font-family:'Bebas Neue',sans-serif;font-size:20px;color:white;letter-spacing:2px;}
+.motivate p{font-size:13px;color:rgba(255,255,255,0.9);font-weight:700;margin-top:6px;line-height:1.5;}
 </style>
 </head>
 <body>
-
 <div class="hdr">
   <img src="лого.jpeg" alt="Эквит" onerror="this.style.display='none'">
-  <div class="hdr-text">
-    <h1>ЭКВИТ</h1>
-    <p>Успехи вашего ребёнка</p>
-  </div>
+  <div><h1>ЭКВИТ</h1><p>Успехи вашего ребёнка</p></div>
 </div>
 <div class="gold-bar"></div>
-
-<div id="app"></div>
+<div id="app"><div class="loading"><div class="ico">⏳</div><p>Загружаем данные...</p></div></div>
 
 <script>
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbz_yyx-GkmciOF-syqMjirAIyVtsyS-TEO93Y7AM5ZNHD_epwDabk5iCUmMf5zNgfk4_Q/exec';
+const PROXY = 'https://api.allorigins.win/raw?url=';
+
 const STICKERS = [
   {e:'🥊',n:'Перчатки'},{e:'⚡',n:'Молния'},{e:'🔥',n:'Огонь'},{e:'🦅',n:'Орёл'},
   {e:'💪',n:'Сила'},{e:'🎯',n:'Цель'},{e:'🛡️',n:'Щит'},{e:'⭐',n:'Звезда'},
@@ -136,178 +87,88 @@ const STICKERS = [
   {e:'🚀',n:'Ракета'},{e:'🌊',n:'Волна'},{e:'🏹',n:'Стрела'},{e:'👑',n:'Корона'},
 ];
 
-const GROUPS = {
-  sc1700: 'Сев. Чертаново 17:00', sc1800: 'Сев. Чертаново 18:00',
-  yb_kids: 'Юж. Бутово (дети)', yb_adults: 'Юж. Бутово (взрослые)',
-  d9: 'МЦБИ Д9', d8: 'МЦБИ Д8', d1: 'МЦБИ Д1',
-};
+function getName() {
+  const p = new URLSearchParams(window.location.search);
+  return p.get('name') ? decodeURIComponent(p.get('name')) : null;
+}
+function ini(n) { return n.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase(); }
 
-const DEFAULT_STUDENTS = {
-  d9: ['Бондаренко Андрей','Бондаренко Даниил','Володин Тимофей','Гареев Ростислав',
-       'Грачев Иван','Калинников Ярослав','Кузьмин Никита','Малаховский Илья',
-       'Попов Семен','Пушкарев Юрий','Фомин Тимофей'],
-};
-
-function db() {
-  try { return JSON.parse(localStorage.getItem('ekvit_v3')||'{}'); } catch(e){return{};}
+async function loadData() {
+  try {
+    const res = await fetch(PROXY + encodeURIComponent(SHEETS_URL));
+    const text = await res.text();
+    return JSON.parse(text);
+  } catch(e) { return []; }
 }
 
-function getSD(name) {
-  const d = db();
-  if (!d.sdata || !d.sdata[name]) return { visits:0, stickers:[] };
-  return d.sdata[name];
-}
-
-function getAllStudents() {
-  const d = db();
-  const all = [];
-  const gids = ['sc1700','sc1800','yb_kids','yb_adults','d9','d8','d1'];
-  gids.forEach(gid => {
-    const students = (d.students && d.students[gid]) ? d.students[gid] : (DEFAULT_STUDENTS[gid]||[]);
-    students.forEach(name => {
-      if (!all.find(s=>s.name===name)) {
-        const sd = getSD(name);
-        all.push({ name, group: GROUPS[gid], visits: sd.visits||0, stickers: sd.stickers||[] });
-      }
-    });
+function process(rows, name) {
+  const map = {};
+  rows.forEach(r => {
+    if (!r.name) return;
+    if (!map[r.name]) map[r.name] = {name:r.name, group:r.group, visits:0, stickers:[]};
+    map[r.name].visits++;
+    if (r.sticker) {
+      const s = STICKERS.find(x=>x.e===r.sticker)||{e:r.sticker,n:r.sticker};
+      map[r.name].stickers.push({e:r.sticker, n:s.n, date:r.date, group:r.group});
+    }
   });
-  return all;
+  const all = Object.values(map);
+  const student = map[name]||{name, group:'Клуб Эквит', visits:0, stickers:[]};
+  return {student, all};
 }
 
-function getStudentGroup(name) {
-  const d = db();
-  const gids = ['sc1700','sc1800','yb_kids','yb_adults','d9','d8','d1'];
-  for (const gid of gids) {
-    const students = (d.students && d.students[gid]) ? d.students[gid] : (DEFAULT_STUDENTS[gid]||[]);
-    if (students.includes(name)) return GROUPS[gid];
-  }
-  return 'Клуб Эквит';
-}
-
-// Получаем имя из URL параметра
-function getNameFromURL() {
-  const params = new URLSearchParams(window.location.search);
-  return params.get('name') ? decodeURIComponent(params.get('name')) : null;
-}
-
-function ini(name) {
-  return name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
-}
-
-function getRank(name, all) {
-  const sorted = [...all].sort((a,b)=>b.visits-a.visits);
-  const idx = sorted.findIndex(s=>s.name===name);
-  return idx >= 0 ? idx+1 : '-';
-}
-
-function render() {
-  const name = getNameFromURL();
+async function render() {
+  const name = getName();
   const app = document.getElementById('app');
-
   if (!name) {
-    app.innerHTML = `
-      <div class="not-found">
-        <div class="ico">🔍</div>
-        <h2>Ученик не найден</h2>
-        <p>Эта ссылка не содержит имени ученика.<br>Обратитесь к тренеру за персональной ссылкой.</p>
-      </div>`;
+    app.innerHTML = '<div class="not-found"><div class="ico">🔍</div><h2>Ученик не найден</h2><p>Обратитесь к тренеру за персональной ссылкой.</p></div>';
     return;
   }
-
-  // Показываем загрузку
-  app.innerHTML = `<div style="text-align:center;padding:60px 20px">
-    <div style="font-size:40px;margin-bottom:16px">⏳</div>
-    <div style="font-size:16px;font-weight:700;color:#6B7280">Загружаем данные...</div>
-  </div>`;
-
-  const rows = await loadFromSheets();
-  const { student: sdObj, all } = processSheetData(rows, name);
-  const sd = sdObj;
-  const group = sd.group || 'Клуб Эквит';
-  const rank = getRank(name, all);
-  const earnedEmojis = new Set(sd.stickers.map(s=>s.e));
-  const pct = all.length > 0 ? Math.round((sd.visits / Math.max(1, db().training_count||1)) * 100) : 0;
-
-  // Рейтинг топ-5 + текущий
+  const rows = await loadData();
+  const {student, all} = process(rows, name);
   const sorted = [...all].sort((a,b)=>b.visits-a.visits);
+  const rankIdx = sorted.findIndex(s=>s.name===name);
+  const rank = rankIdx >= 0 ? rankIdx+1 : '-';
+  const earned = new Set(student.stickers.map(s=>s.e));
   const topList = sorted.slice(0,5);
-  const currentIdx = sorted.findIndex(s=>s.name===name);
-  if (currentIdx >= 5) topList.push(sorted[currentIdx]);
+  if (rankIdx >= 5) topList.push(sorted[rankIdx]);
 
-  app.innerHTML = `
-    <div class="profile">
-
-      <div class="profile-card">
-        <div class="profile-ava">${ini(name)}</div>
-        <div>
-          <div class="profile-name">${name}</div>
-          <div class="profile-group">${group}</div>
-        </div>
+  app.innerHTML = `<div class="profile">
+    <div class="profile-card">
+      <div class="profile-ava">${ini(name)}</div>
+      <div><div class="profile-name">${name}</div><div class="profile-group">${student.group}</div></div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-box"><div class="stat-val green">${student.visits}</div><div class="stat-lbl">Тренировок</div></div>
+      <div class="stat-box"><div class="stat-val gold">${student.stickers.length}</div><div class="stat-lbl">Наклеек</div></div>
+      <div class="stat-box"><div class="stat-val red">#${rank}</div><div class="stat-lbl">Место</div></div>
+    </div>
+    <div class="stickers-wrap">
+      <div class="sec-label">Коллекция наклеек</div>
+      <div class="stickers-grid">
+        ${STICKERS.map((s,i)=>`<div class="sticker-cell ${earned.has(s.e)?'earned':'locked'}"><div>${s.e}</div><div class="sticker-cell-num">${i+1}</div></div>`).join('')}
       </div>
-
-      <div class="stats-grid">
-        <div class="stat-box">
-          <div class="stat-val green">${sd.visits}</div>
-          <div class="stat-lbl">Тренировок</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-val gold">${sd.stickers.length}</div>
-          <div class="stat-lbl">Наклеек</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-val red">#${rank}</div>
-          <div class="stat-lbl">Место</div>
-        </div>
-      </div>
-
-      <div class="stickers-wrap">
-        <div class="sec-label">Коллекция наклеек</div>
-        <div class="stickers-grid">
-          ${STICKERS.map((s,i) => `
-            <div class="sticker-cell ${earnedEmojis.has(s.e)?'earned':'locked'}">
-              <div>${s.e}</div>
-              <div class="sticker-cell-num">${i+1}</div>
-            </div>`).join('')}
-        </div>
-      </div>
-
-      <div class="history-wrap">
-        <div class="sec-label">История тренировок</div>
-        ${sd.stickers.length === 0
-          ? `<div class="history-empty">Пока нет записей — жди первой тренировки!</div>`
-          : [...sd.stickers].reverse().map(s => `
-            <div class="history-row">
-              <div class="history-emo">${s.e}</div>
-              <div class="history-info">
-                <div class="history-name">${s.n}</div>
-                <div class="history-date">${s.date} · ${s.group||group}</div>
-              </div>
-            </div>`).join('')
-        }
-      </div>
-
-      <div class="rating-wrap">
-        <div class="sec-label">Рейтинг клуба</div>
-        ${topList.map((s,i) => {
-          const pos = sorted.findIndex(x=>x.name===s.name)+1;
-          const posCls = pos===1?'pos-1':pos===2?'pos-2':pos===3?'pos-3':'pos-o';
-          const isMe = s.name === name;
-          return `<div class="rating-row ${isMe?'highlight':''}">
-            <div class="r-pos ${posCls}">${pos}</div>
-            <div class="r-name">${s.name}${isMe?' 👈':''}</div>
-            <div class="r-val">${s.visits}</div>
-          </div>`;
-        }).join('')}
-      </div>
-
-      <div class="motivate">
-        <h3>${rank === 1 ? '🏆 ТЫ ЛИДЕР!' : rank <= 3 ? '🔥 ТЫ В ТОПЕ!' : '💪 ПРОДОЛЖАЙ!'}</h3>
-        <p>${rank === 1
-          ? 'Отличная работа! Ты на первом месте.\nПродолжай в том же духе!'
-          : `До топ-3 осталось совсем немного.\nКаждая тренировка приближает к победе!`}</p>
-      </div>
-
-    </div>`;
+    </div>
+    <div class="history-wrap">
+      <div class="sec-label">История тренировок</div>
+      ${student.stickers.length===0
+        ? '<div class="history-empty">Пока нет записей — жди первой тренировки!</div>'
+        : [...student.stickers].reverse().map(s=>`<div class="history-row"><div class="history-emo">${s.e}</div><div><div class="history-name">${s.n}</div><div class="history-date">${s.date} · ${s.group}</div></div></div>`).join('')}
+    </div>
+    <div class="rating-wrap">
+      <div class="sec-label">Рейтинг клуба</div>
+      ${topList.map(s=>{
+        const pos = sorted.findIndex(x=>x.name===s.name)+1;
+        const cls = pos===1?'pos-1':pos===2?'pos-2':pos===3?'pos-3':'pos-o';
+        const me = s.name===name;
+        return `<div class="rating-row ${me?'highlight':''}"><div class="r-pos ${cls}">${pos}</div><div class="r-name">${s.name}${me?' 👈':''}</div><div class="r-val">${s.visits}</div></div>`;
+      }).join('')}
+    </div>
+    <div class="motivate">
+      <h3>${rank===1?'🏆 ТЫ ЛИДЕР!':rank<=3?'🔥 ТЫ В ТОПЕ!':'💪 ПРОДОЛЖАЙ!'}</h3>
+      <p>${rank===1?'Отличная работа! Ты на первом месте!':'До топ-3 совсем немного. Каждая тренировка приближает к победе!'}</p>
+    </div>
+  </div>`;
 }
 
 render().catch(console.error);
