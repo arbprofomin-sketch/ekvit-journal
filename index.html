@@ -532,25 +532,46 @@ const STICKERS = [
 ];
 
 // ═══ ХРАНИЛИЩЕ ═══
-// Версия данных — при изменении сбрасывает старый кэш
-const DATA_VERSION = '2';
-if (localStorage.getItem('ekvit_data_version') !== DATA_VERSION) {
-  localStorage.removeItem('ekvit_v3');
-  localStorage.setItem('ekvit_data_version', DATA_VERSION);
-}
 function db() { try { return JSON.parse(localStorage.getItem('ekvit_v3')||'{}'); } catch(e){return{};} }
 function save(d) { localStorage.setItem('ekvit_v3', JSON.stringify(d)); }
 
-function getStudents(gid) {
-  const d = db();
-  if (!d.students) d.students = {};
-  if (!d.students[gid]) { d.students[gid] = [...(DEFAULT_STUDENTS[gid]||[])]; save(d); }
-  return d.students[gid];
+// Кэш учеников из Sheets
+let sheetsStudentsCache = null;
+
+async function loadStudentsFromSheets() {
+  if (sheetsStudentsCache) return sheetsStudentsCache;
+  try {
+    const res = await fetch('https://corsproxy.io/?' + encodeURIComponent(SHEETS_URL + '?action=students'));
+    const text = await res.text();
+    const rows = JSON.parse(text);
+    const map = {};
+    rows.forEach(r => {
+      if (!r.group) return;
+      if (!map[r.group]) map[r.group] = [];
+      if (!map[r.group].includes(r.name)) map[r.group].push(r.name);
+    });
+    sheetsStudentsCache = map;
+    return map;
+  } catch(e) {
+    console.log('Students load error:', e);
+    return DEFAULT_STUDENTS;
+  }
 }
+
+function getStudents(gid) {
+  // Возвращаем из кэша если есть, иначе из DEFAULT_STUDENTS
+  if (sheetsStudentsCache && sheetsStudentsCache[gid]) return sheetsStudentsCache[gid];
+  return DEFAULT_STUDENTS[gid] || [];
+}
+
 function addStudentDB(gid, name) {
   const d = db(); if (!d.students) d.students = {};
-  if (!d.students[gid]) d.students[gid] = [...(DEFAULT_STUDENTS[gid]||[])];
+  if (!d.students[gid]) d.students[gid] = [];
   if (!d.students[gid].includes(name)) { d.students[gid].push(name); save(d); }
+  if (sheetsStudentsCache) {
+    if (!sheetsStudentsCache[gid]) sheetsStudentsCache[gid] = [];
+    if (!sheetsStudentsCache[gid].includes(name)) sheetsStudentsCache[gid].push(name);
+  }
 }
 function getSD(name) {
   const d = db(); if (!d.sdata) d.sdata = {};
@@ -589,8 +610,10 @@ function showErr(msg) { const e=document.getElementById('loginErr'); e.textConte
 function clearErr() { document.getElementById('loginErr').style.display='none'; }
 
 // ═══ ГРУППЫ ═══
-function renderGroups() {
+async function renderGroups() {
   const gids = TRAINERS[currentTrainer].groups;
+  document.getElementById('groupsGrid').innerHTML = '<div style="padding:20px;color:#9CA3AF;font-size:14px;font-weight:700;text-align:center">⏳ Загружаем группы...</div>';
+  await loadStudentsFromSheets();
   document.getElementById('groupsGrid').innerHTML = gids.map(gid => {
     const g = GROUPS_DEF[gid];
     const cnt = getStudents(gid).length;
@@ -602,11 +625,14 @@ function renderGroups() {
     </div>`;
   }).join('');
 }
-function selectGroup(gid) {
+async function selectGroup(gid) {
   currentGroup = gid; presentSet = new Set(); stickerMap = {};
   document.getElementById('attTitle').textContent = GROUPS_DEF[gid].name + ' ' + GROUPS_DEF[gid].time;
   document.getElementById('searchInp').value = '';
-  renderStudents(); showPage('page-att');
+  showPage('page-att');
+  document.getElementById('studentsList').innerHTML = '<div class="empty"><div class="empty-ico">⏳</div>Загружаем учеников...</div>';
+  await loadStudentsFromSheets();
+  renderStudents();
 }
 function goGroups() { renderGroups(); showPage('page-groups'); }
 
