@@ -535,13 +535,12 @@ const STICKERS = [
 function db() { try { return JSON.parse(localStorage.getItem('ekvit_v3')||'{}'); } catch(e){return{};} }
 function save(d) { localStorage.setItem('ekvit_v3', JSON.stringify(d)); }
 
-// Кэш учеников из Sheets
-let sheetsStudentsCache = null;
+// Список учеников — загружается свежий каждый раз
+let studentsMap = {};
 
 async function loadStudentsFromSheets() {
-  if (sheetsStudentsCache) return sheetsStudentsCache;
   try {
-    const res = await fetch('https://corsproxy.io/?' + encodeURIComponent(SHEETS_URL + '?action=students'));
+    const res = await fetch('https://corsproxy.io/?' + encodeURIComponent(SHEETS_URL + '?action=students&t=' + Date.now()));
     const text = await res.text();
     const rows = JSON.parse(text);
     const map = {};
@@ -550,28 +549,23 @@ async function loadStudentsFromSheets() {
       if (!map[r.group]) map[r.group] = [];
       if (!map[r.group].includes(r.name)) map[r.group].push(r.name);
     });
-    sheetsStudentsCache = map;
+    studentsMap = map;
     return map;
   } catch(e) {
     console.log('Students load error:', e);
+    studentsMap = DEFAULT_STUDENTS;
     return DEFAULT_STUDENTS;
   }
 }
 
 function getStudents(gid) {
-  // Возвращаем из кэша если есть, иначе из DEFAULT_STUDENTS
-  if (sheetsStudentsCache && sheetsStudentsCache[gid]) return sheetsStudentsCache[gid];
+  if (studentsMap[gid] && studentsMap[gid].length > 0) return studentsMap[gid];
   return DEFAULT_STUDENTS[gid] || [];
 }
 
 function addStudentDB(gid, name) {
-  const d = db(); if (!d.students) d.students = {};
-  if (!d.students[gid]) d.students[gid] = [];
-  if (!d.students[gid].includes(name)) { d.students[gid].push(name); save(d); }
-  if (sheetsStudentsCache) {
-    if (!sheetsStudentsCache[gid]) sheetsStudentsCache[gid] = [];
-    if (!sheetsStudentsCache[gid].includes(name)) sheetsStudentsCache[gid].push(name);
-  }
+  if (!studentsMap[gid]) studentsMap[gid] = [];
+  if (!studentsMap[gid].includes(name)) studentsMap[gid].push(name);
 }
 function getSD(name) {
   const d = db(); if (!d.sdata) d.sdata = {};
