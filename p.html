@@ -214,9 +214,16 @@ function render() {
     return;
   }
 
-  const sd = getSD(name);
-  const all = getAllStudents();
-  const group = getStudentGroup(name);
+  // Показываем загрузку
+  app.innerHTML = `<div style="text-align:center;padding:60px 20px">
+    <div style="font-size:40px;margin-bottom:16px">⏳</div>
+    <div style="font-size:16px;font-weight:700;color:#6B7280">Загружаем данные...</div>
+  </div>`;
+
+  const rows = await loadFromSheets();
+  const { student: sdObj, all } = processSheetData(rows, name);
+  const sd = sdObj;
+  const group = sd.group || 'Клуб Эквит';
   const rank = getRank(name, all);
   const earnedEmojis = new Set(sd.stickers.map(s=>s.e));
   const pct = all.length > 0 ? Math.round((sd.visits / Math.max(1, db().training_count||1)) * 100) : 0;
@@ -303,7 +310,7 @@ function render() {
     </div>`;
 }
 
-render();
+render().catch(console.error);
 </script>
 </body>
 </html>
