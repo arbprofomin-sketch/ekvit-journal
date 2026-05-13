@@ -728,6 +728,19 @@ function closeSheets() {
 }
 
 // ═══ ЗАВЕРШЕНИЕ ═══
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbz_yyx-GkmciOF-syqMjirAIyVtsyS-TEO93Y7AM5ZNHD_epwDabk5iCUmMf5zNgfk4_Q/exec';
+
+async function sendToSheets(rows) {
+  try {
+    await fetch(SHEETS_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({rows})
+    });
+  } catch(e) { console.log('Sheets:', e); }
+}
+
 function finishTraining() {
   if (!presentSet.size) return;
   const now = new Date();
@@ -740,13 +753,23 @@ function finishTraining() {
   const topE = Object.keys(counts).sort((a,b)=>counts[b]-counts[a])[0] || STICKERS[0].e;
   const topS = STICKERS.find(s=>s.e===topE) || STICKERS[0];
 
-  // Сохраняем
+  // Сохраняем локально
   presentArr.forEach(name => {
     const sd = getSD(name);
     sd.visits = (sd.visits||0) + 1;
     if (stickerMap[name]) sd.stickers.push({e:stickerMap[name], date:dateStr, group:GROUPS_DEF[currentGroup].name});
     saveSD(name, sd);
   });
+
+  // Отправляем в Google Sheets
+  const rows = presentArr.map(name => ({
+    name: name,
+    group: GROUPS_DEF[currentGroup].name,
+    date: dateStr,
+    sticker: stickerMap[name] || '',
+    trainer: TRAINERS[currentTrainer].name
+  }));
+  sendToSheets(rows);
 
   // Показываем
   const stickerCount = Object.keys(stickerMap).length;
