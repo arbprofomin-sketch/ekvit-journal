@@ -532,6 +532,12 @@ const STICKERS = [
 ];
 
 // ═══ ХРАНИЛИЩЕ ═══
+// Версия данных — при изменении сбрасывает старый кэш
+const DATA_VERSION = '2';
+if (localStorage.getItem('ekvit_data_version') !== DATA_VERSION) {
+  localStorage.removeItem('ekvit_v3');
+  localStorage.setItem('ekvit_data_version', DATA_VERSION);
+}
 function db() { try { return JSON.parse(localStorage.getItem('ekvit_v3')||'{}'); } catch(e){return{};} }
 function save(d) { localStorage.setItem('ekvit_v3', JSON.stringify(d)); }
 
